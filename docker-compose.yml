@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  wordpress:
+    build: .  
+    restart: always 
+    ports:
+      - "80:80" 
+
+    environment:
+      WORDPRESS_DB_HOST: ${RDS_HOSTNAME}:${RDS_PORT}
+      WORDPRESS_DB_USER: ${RDS_USERNAME}
+      WORDPRESS_DB_PASSWORD: ${RDS_PASSWORD}
+      WORDPRESS_DB_NAME: ${RDS_DATABASE_NAME}
+    volumes:
+        - /mnt/efs/wordpress/wp-content:/var/www/html/wp-content
