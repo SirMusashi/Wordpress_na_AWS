@@ -32,3 +32,38 @@
 * Demonstração: A aplicação WordPress deve ser demonstrada funcionando (tela de login).
 * Porta: A aplicação WordPress precisa estar rodando na porta 80 ou 8080.
 * Controle de Versão: Usar um repositório Git para versionamento.
+
+## Primeiros passos :
+A Primeira coisa foi criar a estrutura de arquivos em um ambiente local.
+
+### 1. Criando um dockerfile 
+
+Este ``Dockerfile`` será responsável por criar uma imagem otimizada para o Wordpress.
+```Dockerfile
+    FROM wordpress:6.5.2-php8.2-fpm-alpine as builder
+
+    FROM wordpress:6.5.2-php8.2-fpm-alpine
+
+    COPY --from=builder /usr/src/wordpress /usr/src/wordpress
+    COPY --from=builder /var/www/html /var/www/html
+
+    RUN chown -R www-data:www-data /var/www/html
+
+    EXPOSE 9000
+
+    CMD ["php-fpm"]
+```
+
+* ``FROM wordpress:6.5.2-php8.2-fpm-alpine as builder`` : Esse é o ``Build Stage`` , ele usa uma imagem PHP_FPM para o build.
+
+* ``FROM wordpress:6.5.2-php8.2-fpm-alpine`` : Esse é o segundo estágio, chamado de ``Production Stage`` , e utiliza uma imagem de runtime mais leve.
+
+* ``COPY --from=builder /usr/src/wordpress /usr/src/wordpress`` e ``
+    COPY --from=builder /var/www/html /var/www/html`` : Esse comando copia os arquivos do WordPress do ``estágio de build`` .
+
+* ``RUN chown -R www-data:www-data /var/www/html`` : Esse comando define permissões apropriadas.
+
+* ``EXPOSE 9000`` : Aqui expomos a porta 9000 que é a porta que o ``PHP-FPM`` usa.
+
+
+* ``CMD ["php-fpm"]`` : Comando padrão para iniciar o ``PHP-FPM``
