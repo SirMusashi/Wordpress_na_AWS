@@ -153,3 +153,57 @@ else
   echo "Erro: EFS não montado. Verifique o ID do EFS e a região."
 fi
 ```
+
+## Configurando a AWS :
+
+### 1. Criando uma VPC
+
+* Fui até ``VPC`` > ``Your VPCs`` > ``Criar VPC`` 
+
+  ![VPC_01](imagens/01_VPC.png)
+  ![VPC_02](imagens/02_VPC.png)
+
+* Usei as seguintes configurações na tela seguinte:
+
+  ![VPC_03](imagens/03_VPC.png)
+    
+    * Optei por um bloco ``CIDR maior``, como o ``/16`` , pelo fato de ele fornecer 65.536 endereços de IP, já que vou usar uma arquitetura de ``2 AZs`` e sub-redes ``públicas`` e ``privadas``.
+
+### 2. Criando sub-redes para a VPC
+
+* Primeiro passo foi ir até a barra lateral das opções e clicar em ``Sub-redes`` :
+
+  ![SUB_REDES_01](imagens/SUB_REDES_01.png)
+
+* Em seguida o passo foi Criar as 4 subredes(duas públicas e duas privada, em diferentes ``Zonas de disponibilidade`` ).
+
+  ![SUB_REDES_02](imagens/SUB_REDES_02.png)
+
+    * sub-redes criadas:
+
+      ![SUB_REDES_03](imagens/SUB_REDES_03.png)
+      ![SUB_REDES_04](imagens/SUB_REDES_04.png)
+
+### 3. Criando um Internet Gateway, configurando as Tabelas de Roteamento e implantando o NAT Gateway
+
+Aqui foi o passo de configurar o acesso a internet e o roteamento de tráfego, além de tambem criar um ``NAT Gateway`` para as instancias ``EC2`` nas sub-redes privadas poderem se comunicar com o ``mundo externo`` (baixar pacotes, interagir com serviços ``AWS`` e buscar imagens Docker).
+
+* Primeiro passo aqui foi clicar na barra lateral na opção ``Gateways de internet`` :
+ ![GATEWAY_01](imagens/GATEWAY_01.png)
+
+ * Em seguida , clicar na opção ``Criar gateway da Internet`` :
+
+    ![GATEWAY_02](imagens/GATEWAY_02.png)
+
+  * Gateway criada, ela estava com o status como ``Detached`` :
+
+    ![GATEWAY_03](imagens/GATEWAY_03.png)
+
+  * Daí foi clicar no menu ``Ações`` e em seguida em ``Associar a uma VPC`` :
+
+    ![GATEWAY_04](imagens/GATEWAY_04.png)
+
+  E então associar a minha VPC criada .
+
+  
+  * O segundo passo
