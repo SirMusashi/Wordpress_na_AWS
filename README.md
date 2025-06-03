@@ -206,4 +206,45 @@ Aqui foi o passo de configurar o acesso a internet e o roteamento de tráfego, a
   E então associar a minha VPC criada .
 
   
-  * O segundo passo
+  * O segundo passo foi criar a ``Tabela de Roteamento Pública`` na opção ``Tabelas de rotas`` : 
+
+    ![RT_01](imagens/RT_01.png)
+    
+    
+  Com a tabela criada e associada  à ``VPC`` é só selecionar a tabela criada e ir em ``Rotas > Editar Rotas`` : 
+
+  ![RT_02](imagens/RT_02.png)
+
+  Após isso adicionei uma rota com destino ``0.0.0.0/0`` (o que significa "todo o tráfego da internet"), e como alvo selecionei ``Gateway da Internet`` e abaixo selecionei minha ``VPC`` : 
+
+  ![RT_03](imagens/RT_03.png)
+
+  Em seguida fui até a aba ``Associações de sub-rede`` e associei essa tabela as minha sub-redes públicas :
+
+  ![RT_04](imagens/RT_04.png)
+
+Após isso criei uma tabela de roteamento privada e associei as sub-redes privadas, porem sem a rota de acesso a internet( A idea da comunicação aqui é através do ``NAT gateway``).
+
+![RT_05](imagens/RT_05.png)
+
+Após isso foi ir até ``IPs Elásticos`` para configurar o ``NAT Gateway`` :
+
+![NAT_01](imagens/NAT_01.png)
+
+Depois cliquei em ``Alocar endereço Ip elástico`` , aloquei meu ip e anotei o ``ID da alocação`` . 
+
+Em seguida fui até ``Gateways NAT`` na barra lateral e cliquei em ``Criar Gateway NAT``:
+
+![NAT_02](imagens/NAT_02.png)
+
+Na tela de criação eu dei ``nome`` ao gateway, tabém associei ele a ``UMA`` das minhas ``redes públicas`` , pois ele precisa de um IP público pra funcionar e por fim escolhi a ID do ``IP elástico`` que criei previamente :
+
+![NAT_03](imagens/NAT_03.png)
+
+Com o status como ``Available``, voltei para a opção ``Tabelas de Rotas`` no menu a esquerda e selecionei minha ``rota privada de VPC`` e cliquei em ``Editar rotas``, depois em ``Adicionar rotas`` e coloquei novamente o destino ``0.0.0.0/0`` mas com o target do meu ``NAT Gateway``.
+
+  ![NAT_04](imagens/NAT_04.png)
+
+Com isso as instâncias ``EC2`` nas sub-redes privadas poderão acessar a internet para baixar dependências, conctar ao ``EFS`` e ``RDS`` de uma forma segura, sem que estejam diretamente acessíveis da internet.
+
+### 4. Criando os Security Groups
