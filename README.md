@@ -248,3 +248,37 @@ Com o status como ``Available``, voltei para a opção ``Tabelas de Rotas`` no m
 Com isso as instâncias ``EC2`` nas sub-redes privadas poderão acessar a internet para baixar dependências, conctar ao ``EFS`` e ``RDS`` de uma forma segura, sem que estejam diretamente acessíveis da internet.
 
 ### 4. Criando os Security Groups
+
+Na área de ``EC2`` eu fui até ``Security groups`` e cliquei em ``Criar grupo de segurança`` para criar os grupos de segurança.
+
+Foram criados dessa forma:
+
+* ``SG do Load Balancer`` (``lb-sg``):
+  Inbound: HTTP (80) de 0.0.0.0/0 (qualquer lugar).
+  Outbound: All traffic para 0.0.0.0/0.
+
+* ``SG das Instâncias EC2`` (``ec2-sg``):
+  Inbound: HTTP (80 ou 8080) do lb-sg (o SG do Load Balancer).
+  Inbound: SSH (22) do meu IP público (para administração).
+  Outbound: All traffic para 0.0.0.0/0 (para que as instâncias possam baixar o Docker, etc.).
+* ``SG do RDS`` (``rds-sg``):
+  Inbound: MySQL/Aurora (3306) do ec2-sg (o SG das instâncias EC2).
+  Outbound: None.
+* ``SG do EFS`` (``efs-sg``):
+  Inbound: NFS (2049) do ec2-sg (o SG das instâncias EC2).
+  Outbound: None.
+
+![SG_01](imagens/SG_01.png)
+
+### 5. Criando a instância ANAZON RDS(MySQL)
+
+Aqui o primeiro caminho foi ir para ``AURORA AND RDS`` e clicar na barra lateral em ``Grupos de subredes`` e criar um grupo de sub-redes para as redes privadas em seguinda clicar em ``Bancos de Dados``, e em seguida clicar em ``Criar banco de dados`` .
+
+![DB_04](imagens/DB_04.png)
+![DB_01](imagens/DB_01.png)
+![DB_02](imagens/DB_02.png)
+![DB_03](imagens/DB_03.png)
+
+Após isso eu defini um ``nome de usuário mestre`` e ``senha``, em ``Conectividade`` eu selecionei a minha ``VPC``, em grupos de segurança eu adicionei o grupo criado para o RDS(``rds-sg``), defini o ``grupo de sub-redes privadas`` , criei o banco de dados e anotei o ``Endpoint`` e a ``Porta`` para adicionar ao script.
+
+### 6. Criando o EFS
