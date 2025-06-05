@@ -316,4 +316,21 @@ Aqui, novamente em ``EC2`` eu rolei a barra lateral esquerda e cliquei em ``Grup
 
 ### 9. Criando um Application Load Balancer(ALB)
 
+* Primeiro passo aqui foi ainda no ``EC2`` navegar na aba lateral até ``Load Balancers`` e clicando em ``Criar Load Balancer``.
+
+![LB_01](imagens/LB_01.png)
+
+* Na tela seguinte selecionei a opçao ``Application Load Balancer`` .
+
+![LB_02](imagens/LB_02.png)
+
+* Na tela seguinte usei a opçao ``Voltado para internet`` (internet-facing).
+  * Escolhi a minha ``VPC``.
+  * Mapiei as ``sub-redes públicas`` em ambas as ``AZ's``
+  * Na parte de ``Listeners e roteamento`` eu cliquei na opção ``Criar grupo de destino`` e lá usei essas configurações:
+    ![LB_03](imagens/LB_03.png)
+  * Após isso eu associei ela a minha ``Instancia`` e configurei o ``Listener`` na porta ``80`` para o ``Target Group`` criado.
+
+## Implantação e testes:
+
 
