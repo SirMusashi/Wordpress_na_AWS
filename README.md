@@ -282,3 +282,20 @@ Aqui o primeiro caminho foi ir para ``AURORA AND RDS`` e clicar na barra lateral
 Após isso eu defini um ``nome de usuário mestre`` e ``senha``, em ``Conectividade`` eu selecionei a minha ``VPC``, em grupos de segurança eu adicionei o grupo criado para o RDS(``rds-sg``), defini o ``grupo de sub-redes privadas`` , criei o banco de dados e anotei o ``Endpoint`` e a ``Porta`` para adicionar ao script.
 
 ### 6. Criando o EFS
+
+Aqui o primeiro passo foi procurar por ``EFS`` e clicar na barra lateral em ``Sistemas de arquivos`` e depois em ``Criar sistema de arquivos``:
+
+![EFS_01](imagens/EFS_01.png)
+
+Nas opções eu:
+  * Escolhi minha ``VPC``
+  * Em ``Network acess``, eu adicionei os mount targets nas sub-redes privadas de ambas as ``AZ's`` usando o ``efs-sg`` .
+
+Após isso eu anotei o ``File System ID`` para adicionar ao script.
+
+### 7. Criando um Launch Template(Modelo de Lançamento)
+
+Aqui o primeiro passo foi pesquisar por ``EC2`` e depois clicar na barra lateral em ``Modelos de execução`` e logo em seguida em ``Criar um modelo de execução``
+
+![LT_01](imagens/LT_01.png)
+
