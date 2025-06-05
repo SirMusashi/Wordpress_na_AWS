@@ -270,7 +270,7 @@ Foram criados dessa forma:
 
 ![SG_01](imagens/SG_01.png)
 
-### 5. Criando a instância ANAZON RDS(MySQL)
+### 5. Criando a instância AMAZON RDS(MySQL)
 
 Aqui o primeiro caminho foi ir para ``AURORA AND RDS`` e clicar na barra lateral em ``Grupos de subredes`` e criar um grupo de sub-redes para as redes privadas em seguinda clicar em ``Bancos de Dados``, e em seguida clicar em ``Criar banco de dados`` .
 
@@ -289,7 +289,7 @@ Aqui o primeiro passo foi procurar por ``EFS`` e clicar na barra lateral em ``Si
 
 Nas opções eu:
   * Escolhi minha ``VPC``
-  * Em ``Network acess``, eu adicionei os mount targets nas sub-redes privadas de ambas as ``AZ's`` usando o ``efs-sg`` .
+  * Em ``Network access``, eu adicionei os mount targets nas sub-redes privadas de ambas as ``AZ's`` usando o ``efs-sg`` .
 
 Após isso eu anotei o ``File System ID`` para adicionar ao script.
 
@@ -307,4 +307,13 @@ Lá dentro eu:
   * Colei o Conteúdo do scripr criado dentro de ``Detalhes Avançados``
 
 ### 8. Criando o Auto Scaling Group(ASG)
+
+Aqui, novamente em ``EC2`` eu rolei a barra lateral esquerda e cliquei em ``Grupos Auto Scaling`` e logo após em ``Criar grupo do Auto Scaling`` .
+
+![ASG_01](imagens/ASG_01.png)
+
+* Aqui eu dei um nome para o ``ASG`` e selecionei meu ``Modelo de execução``, logo após na parte de ``REDE`` eu selecionei a minha ``VPC`` criada e as ``sub-redes privadas`` que eu criei em ambas as ``AZ's``. E por fim defini a capacidade desejada ``1`` , ficando como capacidade desejada: ``1`` e capacidade máxima ``2`` .
+
+### 9. Criando um Application Load Balancer(ALB)
+
 
