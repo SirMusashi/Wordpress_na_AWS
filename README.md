@@ -299,3 +299,12 @@ Aqui o primeiro passo foi pesquisar por ``EC2`` e depois clicar na barra lateral
 
 ![LT_01](imagens/LT_01.png)
 
+Lá dentro eu:
+  * Coloquei as tags da instancia.
+  * Escolhi a ``AMI``(Amazon Linux).
+  * Escolhi o tipo de instancia que foi a ``t2.micro``.
+  * Criei um Key Pair(para SSH)
+  * Colei o Conteúdo do scripr criado dentro de ``Detalhes Avançados``
+
+### 8. Criando o Auto Scaling Group(ASG)
+
