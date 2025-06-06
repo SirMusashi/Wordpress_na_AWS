@@ -333,4 +333,10 @@ Aqui, novamente em ``EC2`` eu rolei a barra lateral esquerda e cliquei em ``Grup
 
 ## Implantação e testes:
 
+* O primeiro passo aqui, foi derrubar as duas instancias pra ver se o Auto Scaling estava funcionando corretamente:
 
+![FINAL_01](imagens/FINAL_01.png)
+
+Tudo certo aqui
+
+*
