@@ -2,15 +2,18 @@ version: '3.8'
 
 services:
   wordpress:
-    build: .  
-    restart: always 
+    build: .  # Constrói a imagem usando o Dockerfile no diretório atual
+    restart: always # Reinicia o container se ele parar
     ports:
-      - "80:80" 
-
+      - "80:80" # Mapeia a porta 80 do container para a porta 80 do host EC2
+                  # O Load Balancer vai se conectar a esta porta.
     environment:
+      # Variáveis de ambiente para conexão com o Amazon RDS (preenchidas pelo user_data.sh)
       WORDPRESS_DB_HOST: ${RDS_HOSTNAME}:${RDS_PORT}
       WORDPRESS_DB_USER: ${RDS_USERNAME}
       WORDPRESS_DB_PASSWORD: ${RDS_PASSWORD}
       WORDPRESS_DB_NAME: ${RDS_DATABASE_NAME}
     volumes:
-        - /mnt/efs/wordpress/wp-content:/var/www/html/wp-content
+      # Monta o diretório de uploads e outros conteúdos do WordPress no EFS.
+      # O caminho no host (antes dos dois pontos) deve corresponder ao ponto de montagem do EFS.
+      - /mnt/efs/wordpress/wp-content:/var/www/html/wp-content
