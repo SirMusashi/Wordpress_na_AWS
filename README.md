@@ -339,4 +339,35 @@ Aqui, novamente em ``EC2`` eu rolei a barra lateral esquerda e cliquei em ``Grup
 
 Tudo certo aqui
 
-*
+* O próximo passo foi lançar uma instância como ``Bastion Host`` e verificar se estava tudo certo dentro das instancias com comandos:
+```Bash
+tail -f /var/log/cloud-init-output.log
+```
+
+Que me retornou isso aqui:
+
+```Bash
+wordpress-app-wordpress  Built
+ Network wordpress-app_default  Creating
+ Network wordpress-app_default  Created
+ Container wordpress-app-wordpress-1  Creating
+ Container wordpress-app-wordpress-1  Created
+ Container wordpress-app-wordpress-1  Starting
+ Container wordpress-app-wordpress-1  Started
+WordPress implantado com sucesso!
+Cloud-init v. 22.2.2 finished at Fri, 06 Jun 2025 17:26:43 +0000. Datasource DataSourceEc2.  Up 89.32 seconds
+```
+
+Que quer dizer que estava tudo correto com a instalação do ``WordPress``.
+
+E também o comando:
+
+```Bash
+sudo docker ps
+```
+
+Que me retornou dizendo que estava rodando o WordPress
+
+![FINAL_02](imagens/FINAL_02.png)
+
+
